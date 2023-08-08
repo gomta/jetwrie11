@@ -1,0 +1,188 @@
+{%extends './index.html'%}
+{% load widget_tweaks %}
+{% load comment_tags %}
+{% load ratings %}
+
+        {%block category-block%}
+
+       {%endblock category-block%}
+
+         {%block heading%}
+
+
+
+                    <a href="{%url 'home' %}" class="btn btn-sm btn-primary shadow-sm"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+</svg></a> 
+
+        {%endblock heading%}                                     
+{%block title-web%}
+{%if article.private%}
+{%if article.author == user%}
+{{article.post}}
+{%else%}
+این پست خصوصی است
+
+{%endif%}
+{%else%}
+{{article.post}}
+{%endif%}
+{%endblock title-web%}
+{%block category%}
+
+
+{%endblock category%}
+
+
+{%block title%}
+{%if article.private%}
+{%if article.author == user%}
+{{article.post}}
+
+{%endif%}
+{%else%}
+
+{{article.post}}
+
+{%endif%}
+{%endblock title%}
+<br>
+{%block content%}
+{%if article.private%}
+{%if article.author == user %}
+
+<style>
+     @import url('https://v1.fontapi.ir/css/Sahel:400');
+    .text-right{
+     text-align: right !important;
+     direction: rtl !important;
+    font-family: Sahel !important;   
+     }
+.width-text {
+  word-wrap: break-word;
+  width: 300px;
+}
+
+</style>
+
+<div style="text-align:right !important;">
+        {% if article.author.pictures %}
+          <img src="{{article.author.pictures.url}}" style="width:50px;border-radius: 50px 50px 50px 50px; text-align:right;">
+    {%endif%}
+
+    {%if article.author.first_name or  article.author.last_name%}
+                            {%if article.author.first_name%}
+                            <span>{{article.author.first_name}}</span>
+                            {%endif%}
+                            {%if article.author.last_name%}
+                            <span>{{article.author.last_name}}</span>
+                            {%endif%}
+        {%else%}
+        {{article.author.username}}
+        {%endif%}
+        <br>
+    {%if article.video%}
+        <video style="width:300px;" class="video-fluid" autoplay loop>
+                <source src="{{article.video.url}}" type="video/mp4" />
+        </video>
+
+    {%endif%}
+    <br>
+    {%if article.video_not_music%}
+        <video style="width:300px;" class="video-fluid" autoplay muted loop>
+                 <source src="{{article.video_not_music.url}}" type="video/mp4" />
+        </video>
+
+        {%endif%}
+    <br>
+        
+       
+{%if article.pictures%}
+<div style="text-align: right;"><img src="{{article.pictures.url}}" alt="Smiley face" width="250" height="250"></div>
+
+{%endif%}
+
+
+<p>{{article.jpublish}}</p>
+
+{% ratings object %}
+
+
+{%else%}
+این پست خصوصی است.
+
+{%endif%}
+
+
+{%else%}
+
+<style>
+     @import url('https://v1.fontapi.ir/css/Sahel:400');
+    .text-right{
+     text-align: right !important;
+     direction: rtl !important;
+    font-family: Sahel !important;   
+     }
+.width-text {
+  word-wrap: break-word;
+  width: 300px;
+}
+
+</style>
+
+<div style="text-align:right !important;">
+        {% if article.author.pictures %}
+          <img src="{{article.author.pictures.url}}" style="width:50px;border-radius: 50px 50px 50px 50px; text-align:right;">
+    {%endif%}
+       {%if article.author.first_name or  article.author.last_name%}
+                            {%if article.author.first_name%}
+                            <span>{{article.author.first_name}}</span>
+                            {%endif%}
+                            {%if article.author.last_name%}
+                            <span>{{article.author.last_name}}</span>
+                            {%endif%}
+        {%else%}
+        {{article.author.username}}
+        {%endif%}
+        <br>
+                 {%if article.video%}
+                <video style="width:300px;" class="video-fluid" autoplay loop>
+                            <source src="{{article.video.url}}" type="video/mp4" />
+                        </video>
+
+
+                                    {%endif%}
+                                    <br>
+                 {%if article.video_not_music%}
+                <video style="width:300px;" class="video-fluid" autoplay muted loop>
+                            <source src="{{article.video_not_music.url}}" type="video/mp4" />
+                         </video>
+
+                    {%endif%}
+                    <br>
+
+        
+         
+{%if article.pictures%}
+<div style="text-align: right;"><img src="{{article.pictures.url}}" alt="Smiley face" width="250" height="250"></div>
+
+{%else%}
+{%endif%}
+
+<p style="text-align:right; direction: rtl !important;
+">{{article.jpublish}}</p>
+
+{% ratings object %}
+
+<br>
+<small>بازدید: {{article.hits.count}}</small>
+
+
+<div style="text-align:right;">
+{% render_comments article request %}
+</div>
+{% include_bootstrap %}
+
+
+{%endif%}
+{%endblock content%}

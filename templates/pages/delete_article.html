@@ -1,0 +1,31 @@
+{%extends './index.html'%}
+        {%block category-block%}
+
+       {%endblock category-block%}
+{% load crispy_forms_tags %}
+
+
+{%block heading%}
+               <a href="{%url 'home' %}" class="btn btn-sm btn-primary shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+</svg></a> 
+
+{%endblock heading%}
+
+<title>حذف پست</title>
+
+{%block title%}
+<h1 style="text-align:right;">خذف پست </h1>
+{%endblock title%}
+{%block content%}
+
+<form method="post">
+    {% csrf_token %}
+    <p style="text-align:right !important;">آیا از حذف پست "{{object}}" مطمئن هستید؟</p>
+    {{ form }}
+    <div style="text-align:right;">
+    <input style="text-align:right;" type="submit" value="بله" class="btn btn-danger">
+    </div>
+</form>
+{%endblock content%}

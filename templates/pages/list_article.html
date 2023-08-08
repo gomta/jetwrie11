@@ -1,0 +1,84 @@
+{%extends './index.html'%}
+{%load static%}
+        {%block category-block%}
+
+       {%endblock category-block%}
+
+
+{%block heading%}
+               <a href="{%url 'home' %}" class="btn btn-sm btn-primary shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+</svg></a> 
+
+{%endblock heading%}
+
+
+{%block content%}
+  <link rel="stylesheet" type="text/css" href="{%static 'css/rtl.css'%}">
+<div class="row" style="overflow: scroll;" >
+<div class="col-12"  >
+<div class="card"    >
+
+<div class="card-body table-responsive p-0" >
+            <table  class="table table-hover text-nowrap myfont table table-striped">
+<thead>
+<tr>
+<th>توییت</th>
+<th>تاریخ</th>
+<th>موضوع</th>
+<th>ویدیو</th>
+
+<th>عکس</th>
+
+</tr>
+</thead>
+<tbody>
+{%for article in object_list%}
+
+
+<td><a href="{% url 'update' article.pk %}" class="btn">{{article.post|truncatewords:3}}</a></td>
+<td>{{article.jpublish}}</td>
+{%if article.category_to_str%}
+<td>#{{article.category_to_str}}</td>
+
+{%else%}
+<td></td>
+{%endif%}
+{%if article.video%}
+         <td><video style="width:120px;" class="video-fluid" autoplay muted>
+        <source src="{{article.video.url}}" type="video/mp4" />
+    </video>
+</td>
+        {%else%}
+        <td></td>
+{%endif%}
+{%if article.pictures%}
+<td><img src="{{article.pictures.url}}" style="width:120px;"></td>
+{%else%}
+<td></td>
+{%endif%}
+
+<td><a href="{%url 'detail' article.id%}" class="btn text-primary">دیدن پست</a></td>
+
+
+
+<td>
+<a href="{% url 'delete' article.pk %}" class="btn text-danger">
+    حذف
+</a>
+
+</td>
+</tr>
+<tr>
+{%endfor%}
+
+</tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+{%endblock content%}

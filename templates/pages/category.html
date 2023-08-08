@@ -1,0 +1,126 @@
+{%extends './index.html'%}
+{%load static%}
+   {%block star%}
+
+   {%endblock%}
+        {%block category-block%}
+   
+
+             <li class="nav-item dropdown no-arrow mx-4">
+                            <a class="nav-link dropdown-toggle myfont" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                
+                                <span class="badge badge-danger badge-counter myfont">دسته بندی</span>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header myfont" style="text-align:left;">
+                                    دسته بندی ها
+                                </h6>
+
+                                {%for cat in categorys.all%}
+
+                                <a  class="dropdown-item d-flex align-items-center myfont" href="{%url 'category' cat.slug%}" >
+                                    <div>
+                                        <div class="small text-gray-500 myfont" ><span class="myfont">{{cat.title}}</span></div>
+                                    </div>
+                                </a>
+                                {%endfor%}
+
+                                {%endblock category-block%}
+   
+
+
+
+{%block heading%}
+               <a href="{%url 'home' %}" class="btn btn-sm btn-primary shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+</svg></a> 
+
+{%endblock heading%}
+
+{%block title%}
+<h3 class="alert alert-primary text-center">{{category.title}}</h3>
+
+{%endblock%}
+{%block content%}
+        {%for article in category.articles.all%}
+    
+                        <div class="row">
+                            <div class="col-lg-6 mb-4" style="text-align:center;">
+            
+                            {%if article.private%}
+
+                                     {%else%}
+
+
+                                    <a class="btn" class="nav-link dropdown-toggle" href="{%url 'detail' article.id%}" style="width: 350px; text-align:right;">
+
+                                    {%if article.video%}
+                                            <video class="video-fluid" style="width:300px;" controls>
+                                                <source src="{{article.video.url}}" type="video/mp4" />
+                                                </video>
+
+                                    {%endif%}
+                                    {%if article.video_not_music%}
+                                            <video style="width:300px;" class="video-fluid" autoplay muted loop>
+                                                <source src="{{article.video_not_music.url}}" type="video/mp4" />
+                                                </video>
+
+                                    {%endif%}
+
+                                    {%if article.pictures%}
+                                    <img src="{{article.pictures.url}}" height="100" style="width: 200px auto;">
+                                    {%endif%}
+                                    <h5 style="width: 200px; height: 100px;">{{article.post|truncatewords:6}}</h5>
+                                    <br>
+                                    <p style="word-wrap: break-word;
+                                width: 200px;">
+                                    </p>
+                                    {%if article.author.pictures%}
+                                 
+                             <img style="border-radius:4px; width: 50px;" src="{{article.author.pictures.url}}">
+                               
+                                    {%endif%}
+                                    {%if article.author.first_name or article.author.last_name%}
+                                    {%if article.author.first_name%}
+                                    {{article.author.first_name}}
+                                    {%endif%}
+                                    {%if article.author.last_name%}
+                                    {{article.author.last_name}}
+
+                                    {%endif%}
+                                    {%else%}
+                                    {{article.author}}
+                                   {%endif%}
+                                    <br>
+                                   <small>بازدید: {{article.hits.count}}</small>
+
+                                      <br>
+
+                                    
+                          
+            <p style="text-align:right; direction: rtl !important;">{{article.jpublish}}</p>
+                                    
+                                    <br>
+                                    {%for cat in article.category.all%}
+                                
+                                    <a href="{%url 'category' cat.slug%}">
+                                     <br>
+                                        #{{cat.title}}</a>
+                                    <br>
+                                    {%endfor%}
+                              
+                                    </a>
+
+                                        <hr>                                   
+                                     <br>
+                            {%endif%}
+                                    {%endfor%}
+                 
+
+    
+                                   
+{% endblock content %}

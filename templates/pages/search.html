@@ -1,0 +1,17 @@
+{%if searched%}
+You Searched For {{searched}}
+<br>
+{%for x in article%}
+<a href="{%url 'detail' x.id%}">{{x.post}}</a>
+<br>
+
+
+{%empty%}
+متاسفانه محتوایی وجود ندارد
+{%endfor%}
+
+{%else%}
+شما چیزی وارد نکرده اید :-(
+
+
+{%endif%}

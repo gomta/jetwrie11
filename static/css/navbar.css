@@ -1,0 +1,17 @@
+.navbapr-color {
+    background: linear-gradient(#080808ee,#030303e1,#000000c9,#111111b7);
+    animation: gradient 8s ease infinite;
+    background-size: 400% 400%;
+}
+
+@keyframes gradient {
+     0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
